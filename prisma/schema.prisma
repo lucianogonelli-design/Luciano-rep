@@ -1,0 +1,162 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+// ============================================
+// Doctor / Clinic Configuration
+// ============================================
+
+model Doctor {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  phone         String?
+  specialty     String
+  crm           String   @unique // Registro no CRM
+  clinicName    String?
+  clinicAddress String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  patients     Patient[]
+  appointments Appointment[]
+  aiSettings   AISettings?
+}
+
+// ============================================
+// Patients
+// ============================================
+
+model Patient {
+  id          String   @id @default(cuid())
+  name        String
+  email       String?
+  phone       String   // WhatsApp number
+  cpf         String?  @unique
+  dateOfBirth DateTime?
+  gender      String?
+  address     String?
+  notes       String?
+  tags        String?  // Comma-separated tags
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  appointments   Appointment[]
+  medicalRecords MedicalRecord[]
+  conversations  Conversation[]
+
+  @@index([doctorId])
+  @@index([phone])
+}
+
+// ============================================
+// Appointments / Scheduling
+// ============================================
+
+model Appointment {
+  id        String            @id @default(cuid())
+  date      DateTime
+  duration  Int               @default(30) // in minutes
+  status    String            @default("scheduled") // scheduled, confirmed, completed, cancelled, no_show
+  type      String            @default("consultation") // consultation, follow_up, exam, procedure
+  notes     String?
+  createdAt DateTime          @default(now())
+  updatedAt DateTime          @updatedAt
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@index([doctorId, date])
+  @@index([patientId])
+}
+
+// ============================================
+// Medical Records
+// ============================================
+
+model MedicalRecord {
+  id          String   @id @default(cuid())
+  date        DateTime @default(now())
+  type        String   @default("consultation") // consultation, exam, prescription, note
+  title       String
+  content     String   // Main content (symptoms, diagnosis, etc.)
+  prescription String? // Prescription details
+  attachments String?  // JSON array of file paths
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  patientId String
+  patient   Patient @relation(fields: [patientId], references: [id], onDelete: Cascade)
+
+  @@index([patientId])
+}
+
+// ============================================
+// WhatsApp Conversations
+// ============================================
+
+model Conversation {
+  id            String   @id @default(cuid())
+  whatsappPhone String   // WhatsApp phone number
+  status        String   @default("active") // active, waiting, resolved, escalated
+  source        String   @default("whatsapp") // whatsapp, manual
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  patientId String?
+  patient   Patient? @relation(fields: [patientId], references: [id], onDelete: SetNull)
+
+  messages Message[]
+
+  @@index([whatsappPhone])
+  @@index([patientId])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  role      String   // user, assistant, system
+  mediaType String?  // text, image, audio, document
+  mediaUrl  String?
+  metadata  String?  // JSON metadata
+  timestamp DateTime @default(now())
+
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  @@index([conversationId])
+}
+
+// ============================================
+// AI Agent Settings
+// ============================================
+
+model AISettings {
+  id                String  @id @default(cuid())
+  provider          String  @default("openai") // openai, anthropic
+  model             String  @default("gpt-4o-mini")
+  systemPrompt      String  @default("")
+  greeting          String  @default("Ol\u00e1! Sou o assistente virtual do consult\u00f3rio. Como posso ajud\u00e1-lo?")
+  schedulingEnabled Boolean @default(true)
+  autoReply         Boolean @default(true)
+  businessHoursOnly Boolean @default(false)
+  businessHoursStart String @default("08:00")
+  businessHoursEnd   String @default("18:00")
+  businessDays       String @default("1,2,3,4,5") // 0=Sunday, 6=Saturday
+  maxTokens         Int     @default(500)
+  temperature       Float   @default(0.7)
+
+  doctorId String @unique
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+}
