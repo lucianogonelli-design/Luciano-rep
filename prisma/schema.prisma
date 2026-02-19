@@ -24,9 +24,10 @@ model Doctor {
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
-  patients     Patient[]
-  appointments Appointment[]
-  aiSettings   AISettings?
+  patients       Patient[]
+  appointments   Appointment[]
+  aiSettings     AISettings?
+  knowledgeBase  KnowledgeBase[]
 }
 
 // ============================================
@@ -160,4 +161,25 @@ model AISettings {
 
   doctorId String @unique
   doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+}
+
+// ============================================
+// Knowledge Base (RAG - Base de Conhecimento)
+// ============================================
+
+model KnowledgeBase {
+  id        String   @id @default(cuid())
+  category  String   // faq, service, pricing, procedure, general
+  title     String
+  content   String   @db.Text // O conteúdo que a IA vai consultar
+  tags      String?  // Tags para facilitar a busca
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  doctorId String
+  doctor   Doctor @relation(fields: [doctorId], references: [id], onDelete: Cascade)
+
+  @@index([doctorId])
+  @@index([category])
 }

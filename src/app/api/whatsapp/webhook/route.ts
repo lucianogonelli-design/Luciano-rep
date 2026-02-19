@@ -231,7 +231,13 @@ async function handleIncomingMessage(
       content: msg.content,
     }));
 
-    // 7. Call the AI agent
+    // 7. Load knowledge base (RAG)
+    const knowledgeDocs = await prisma.knowledgeBase.findMany({
+      where: { doctorId: doctor.id, isActive: true },
+      select: { category: true, title: true, content: true },
+    });
+
+    // 8. Call the AI agent
     const responseText = await processMessage(
       messageText,
       conversationHistory,
@@ -246,6 +252,7 @@ async function handleIncomingMessage(
         clinicAddress: doctor.clinicAddress ?? undefined,
         doctorName: doctor.name,
         specialty: doctor.specialty,
+        knowledgeBase: knowledgeDocs,
       }
     );
 

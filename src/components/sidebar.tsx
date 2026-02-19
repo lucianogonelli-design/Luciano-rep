@@ -9,6 +9,7 @@ import {
   MessageSquare,
   FileText,
   Bot,
+  BookOpen,
   Stethoscope,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -19,6 +20,7 @@ const navItems = [
   { label: "Agendamentos", href: "/appointments", icon: Calendar },
   { label: "Conversas", href: "/conversations", icon: MessageSquare },
   { label: "Prontuários", href: "/records", icon: FileText },
+  { label: "Base de Conhecimento", href: "/knowledge", icon: BookOpen },
   { label: "Configurações IA", href: "/settings/ai", icon: Bot },
 ];
 

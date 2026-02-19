@@ -12,6 +12,12 @@ interface ConversationMessage {
   content: string;
 }
 
+interface KnowledgeDocument {
+  category: string;
+  title: string;
+  content: string;
+}
+
 interface AIAgentSettings {
   provider: "openai" | "anthropic";
   model: string;
@@ -23,6 +29,7 @@ interface AIAgentSettings {
   clinicAddress?: string;
   doctorName?: string;
   specialty?: string;
+  knowledgeBase?: KnowledgeDocument[];
 }
 
 // ---------------------------------------------------------------------------
@@ -95,8 +102,25 @@ Regras importantes:
 - Quando o paciente quiser agendar, utilize a ferramenta de verificação de disponibilidade antes de confirmar.`;
 
   const custom = settings.systemPrompt?.trim();
+  let prompt = custom ? `${base}\n\nInstruções adicionais do médico:\n${custom}` : base;
 
-  return custom ? `${base}\n\nInstruções adicionais do médico:\n${custom}` : base;
+  // Injetar base de conhecimento (RAG) no contexto
+  if (settings.knowledgeBase && settings.knowledgeBase.length > 0) {
+    const knowledgeText = settings.knowledgeBase
+      .map((doc) => `[${doc.category.toUpperCase()}] ${doc.title}:\n${doc.content}`)
+      .join("\n\n---\n\n");
+
+    prompt += `\n\n=== BASE DE CONHECIMENTO DA CLÍNICA ===
+Use as informações abaixo para responder perguntas dos pacientes com precisão.
+Se a resposta estiver na base de conhecimento, use essa informação.
+Se não encontrar a resposta na base, responda de forma geral e sugira entrar em contato com a clínica.
+
+${knowledgeText}
+
+=== FIM DA BASE DE CONHECIMENTO ===`;
+  }
+
+  return prompt;
 }
 
 // ---------------------------------------------------------------------------

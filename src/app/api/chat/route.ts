@@ -91,7 +91,13 @@ export async function POST(request: NextRequest) {
       content: msg.content,
     }));
 
-    // 5. Call AI agent
+    // 5. Load knowledge base (RAG)
+    const knowledgeDocs = await prisma.knowledgeBase.findMany({
+      where: { doctorId: doctor.id, isActive: true },
+      select: { category: true, title: true, content: true },
+    });
+
+    // 6. Call AI agent
     const responseText = await processMessage(
       message.trim(),
       conversationHistory,
@@ -106,6 +112,7 @@ export async function POST(request: NextRequest) {
         clinicAddress: doctor.clinicAddress ?? undefined,
         doctorName: doctor.name,
         specialty: doctor.specialty,
+        knowledgeBase: knowledgeDocs,
       }
     );
 
