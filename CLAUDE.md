@@ -64,7 +64,7 @@ This file provides guidance for AI assistants (such as Claude) working in this r
 
 - **Framework**: Next.js 15 (App Router)
 - **Language**: TypeScript 5.7+
-- **Database**: SQLite via Prisma ORM 6
+- **Database**: PostgreSQL via Supabase + Prisma ORM 6
 - **Styling**: Tailwind CSS 3.4
 - **AI**: Vercel AI SDK with OpenAI and Anthropic providers
 - **WhatsApp**: Meta Cloud API (v21.0)
@@ -86,13 +86,18 @@ This file provides guidance for AI assistants (such as Claude) working in this r
    npm install
    ```
 
-2. **Set up environment variables**:
+2. **Set up Supabase**:
+   - Create a project at [supabase.com](https://supabase.com)
+   - Go to Settings > Database > Connection string
+   - Copy the connection strings to `.env`
+
+3. **Set up environment variables**:
    ```bash
    cp .env.example .env
-   # Edit .env with your API keys
+   # Edit .env with your Supabase URLs and API keys
    ```
 
-3. **Set up the database**:
+4. **Set up the database**:
    ```bash
    npx prisma generate
    npx prisma db push
@@ -114,7 +119,8 @@ This file provides guidance for AI assistants (such as Claude) working in this r
 
 | Variable | Description |
 |----------|-------------|
-| `DATABASE_URL` | SQLite database path (default: `file:./dev.db`) |
+| `DATABASE_URL` | Supabase PostgreSQL connection string (with pooling) |
+| `DIRECT_URL` | Supabase PostgreSQL direct connection (for migrations) |
 | `WHATSAPP_API_TOKEN` | Meta WhatsApp Business API token |
 | `WHATSAPP_PHONE_NUMBER_ID` | WhatsApp phone number ID |
 | `WHATSAPP_BUSINESS_ACCOUNT_ID` | WhatsApp Business account ID |

@@ -3,8 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = env("DATABASE_URL")
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 // ============================================
@@ -41,7 +42,7 @@ model Patient {
   dateOfBirth DateTime?
   gender      String?
   address     String?
-  notes       String?
+  notes       String?  @db.Text
   tags        String?  // Comma-separated tags
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
@@ -67,7 +68,7 @@ model Appointment {
   duration  Int               @default(30) // in minutes
   status    String            @default("scheduled") // scheduled, confirmed, completed, cancelled, no_show
   type      String            @default("consultation") // consultation, follow_up, exam, procedure
-  notes     String?
+  notes     String?  @db.Text
   createdAt DateTime          @default(now())
   updatedAt DateTime          @updatedAt
 
@@ -90,9 +91,9 @@ model MedicalRecord {
   date        DateTime @default(now())
   type        String   @default("consultation") // consultation, exam, prescription, note
   title       String
-  content     String   // Main content (symptoms, diagnosis, etc.)
-  prescription String? // Prescription details
-  attachments String?  // JSON array of file paths
+  content     String   @db.Text // Main content (symptoms, diagnosis, etc.)
+  prescription String? @db.Text // Prescription details
+  attachments String?  @db.Text // JSON array of file paths
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
 
@@ -125,11 +126,11 @@ model Conversation {
 
 model Message {
   id        String   @id @default(cuid())
-  content   String
+  content   String   @db.Text
   role      String   // user, assistant, system
   mediaType String?  // text, image, audio, document
   mediaUrl  String?
-  metadata  String?  // JSON metadata
+  metadata  String?  @db.Text // JSON metadata
   timestamp DateTime @default(now())
 
   conversationId String
@@ -146,7 +147,7 @@ model AISettings {
   id                String  @id @default(cuid())
   provider          String  @default("openai") // openai, anthropic
   model             String  @default("gpt-4o-mini")
-  systemPrompt      String  @default("")
+  systemPrompt      String  @default("") @db.Text
   greeting          String  @default("Ol\u00e1! Sou o assistente virtual do consult\u00f3rio. Como posso ajud\u00e1-lo?")
   schedulingEnabled Boolean @default(true)
   autoReply         Boolean @default(true)
