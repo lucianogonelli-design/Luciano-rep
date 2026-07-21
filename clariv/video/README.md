@@ -1,22 +1,32 @@
-# Clariv — Reel 20s (edição sobre referência "3000")
+# Clariv — Vídeo institucional 20s (motion design)
 
-Edição de vídeo de 20 segundos para a Clariv (www.clariv.com.br), usando como
-referência o reel "3000" (inmark.mp4, pasta Clariv do Google Drive).
+Vídeo de 20 segundos criado **do zero** para a Clariv (www.clariv.com.br),
+usando o reel "3000" apenas como referência de ritmo e clima. Toda a arte,
+as animações e as cenas são originais e construídas 100% na identidade
+visual da marca.
 
-## O que foi feito
-- Remoção do "3000" em cada cena (blur localizado com máscara suavizada) e
-  substituição pelo wordmark CLARIV em tom vinho, integrado à estética
-  terracota/creme do vídeo original.
-- Cenas utilizadas: toalha, guarda-sol, caixa, boias, tendas de praia, bola na
-  piscina, prancha de stand-up, bolsa, vôlei e tomada aérea da piscina.
-- Cenas descartadas por inviabilidade de substituição limpa: bandeira ao vento,
-  cartas de baralho, sofás aéreos, cabines (texto vertical) e encerramento
-  original com marca d'água "mascha".
-- Ritmo reajustado (leve câmera lenta) para fechar em 16,5s de footage +
-  cartela final de 3,5s com o logotipo oficial Clariv e o site, nas cores da
-  identidade visual (off-white #EDEAE5, caramelo #B37E56, verde #143429).
-- Trilha de áudio original mantida, com fade-out nos 2 segundos finais.
+## Identidade visual aplicada
+- Verde profundo `#143429`
+- Off-white / creme `#EDEAE5`
+- Caramelo `#B37E56`
+- Logotipo oficial "CLARIV — por Priscilla Zanelatto"
+
+## Roteiro (8 cenas, com transições em cross-fade)
+1. Abertura — revelação do wordmark CLARIV em caramelo sobre verde, com anel de luz.
+2. Listras da marca (releitura dos guarda-sóis) em parallax, verde/creme/caramelo.
+3. Monograma "C" com varredura de luz metálica sobre gradiente caramelo.
+4. Anel dourado animado com brilho rotativo e cintilação.
+5. Tipografia cinética: REFINADA / SOFISTICADA / EXCLUSIVA.
+6. Pingente com gema facetada oscilando (pêndulo com reflexo).
+7. Padrão CLARIV em scroll diagonal, tom sobre tom no verde.
+8. Cartela final — logotipo oficial completo + www.clariv.com.br.
+
+Trilha sonora: base do vídeo de referência, com fade-in/out.
+
+## Especificações
+- 1080×1920 (9:16, vertical — Reels / Stories)
+- 30 fps, 20,0 s, H.264 + AAC
 
 ## Arquivos
-- `clariv_reel_20s.mp4` — vídeo final (720x1280, 9:16, 30 fps, 20,0 s, AAC)
-- `endcard_clariv.png` — cartela de encerramento
+- `clariv_reel_20s.mp4` — vídeo final
+- `endcard_clariv.png` — cartela de encerramento (arte estática)
