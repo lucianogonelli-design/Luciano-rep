@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#05060a" />
+  <meta name="theme-color" content="#04060c" />
   <title>Letramento em IA para PMEs · Workshop</title>
   <meta name="description" content="Da curiosidade à maturidade: um workshop prático que leva sua PME a usar Inteligência Artificial com método, segurança e ROI real. 4 horas. Sem jargão. Com plano de ação." />
 
@@ -48,7 +48,7 @@
       <a href="#agenda" data-cursor-label="ver">Agenda</a>
       <a href="#oferta" data-cursor-label="ver">Investimento</a>
     </nav>
-    <a href="#oferta" class="btn btn--nav" data-magnetic data-cursor-label="→">
+    <a href="#inscricao" class="btn btn--nav" data-magnetic data-cursor-label="→">
       Garantir vaga
     </a>
   </header>
@@ -82,7 +82,7 @@
         </p>
 
         <div class="hero__actions reveal" data-reveal>
-          <a href="#oferta" class="btn btn--primary" data-magnetic data-cursor-label="vamos">
+          <a href="#inscricao" class="btn btn--primary" data-magnetic data-cursor-label="vamos">
             <span>Quero dominar a IA</span>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -450,11 +450,108 @@
             <strong>sob<br/>medida</strong>
             <span>para a sua turma</span>
           </div>
-          <a href="#top" class="btn btn--primary btn--block" data-magnetic data-cursor-label="→">
+          <a href="#inscricao" class="btn btn--primary btn--block" data-magnetic data-cursor-label="→">
             <span>Solicitar proposta</span>
             <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
           <p class="offer__guarantee">Da curiosidade à maturidade — com método, segurança e resultado.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ 9 · INSCRIÇÃO — FORMULÁRIO ══════════════════ -->
+    <section class="enroll" id="inscricao">
+      <div class="enroll__aura" aria-hidden="true"></div>
+      <div class="enroll__grid">
+        <div class="enroll__intro">
+          <p class="section-eyebrow" data-reveal>Capítulo 08 — A inscrição</p>
+          <h2 class="section-title" data-split-lines>
+            Vamos levar a IA<br />para dentro da <span class="grad">sua empresa.</span>
+          </h2>
+          <p class="section-lead" data-reveal>
+            Conte um pouco sobre o seu negócio e a sua turma. Retornamos com uma proposta sob
+            medida — presencial ou on-line, adaptada à sua carga horária.
+          </p>
+          <ul class="enroll__perks" data-reveal>
+            <li>Resposta em até 1 dia útil</li>
+            <li>Turmas de 8 a 25 pessoas</li>
+            <li>Sem compromisso</li>
+          </ul>
+        </div>
+
+        <div class="enroll__col">
+          <form class="glass enroll__form" id="lead-form" novalidate data-reveal>
+            <div class="enroll__form-glow" aria-hidden="true"></div>
+
+            <div class="field">
+              <label for="f-nome">Nome completo</label>
+              <input id="f-nome" name="nome" type="text" autocomplete="name" required placeholder="Como podemos te chamar?" />
+              <span class="field__error" data-error></span>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-email">E-mail</label>
+                <input id="f-email" name="email" type="email" autocomplete="email" required placeholder="voce@empresa.com" />
+                <span class="field__error" data-error></span>
+              </div>
+              <div class="field">
+                <label for="f-whats">WhatsApp</label>
+                <input id="f-whats" name="whatsapp" type="tel" autocomplete="tel" required placeholder="(11) 90000-0000" />
+                <span class="field__error" data-error></span>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-empresa">Empresa</label>
+              <input id="f-empresa" name="empresa" type="text" autocomplete="organization" required placeholder="Nome da sua empresa" />
+              <span class="field__error" data-error></span>
+            </div>
+
+            <div class="field-row">
+              <div class="field">
+                <label for="f-formato">Formato</label>
+                <div class="select-wrap">
+                  <select id="f-formato" name="formato">
+                    <option>Presencial</option>
+                    <option>On-line</option>
+                    <option>Tanto faz</option>
+                  </select>
+                </div>
+              </div>
+              <div class="field">
+                <label for="f-turma">Tamanho da turma</label>
+                <div class="select-wrap">
+                  <select id="f-turma" name="turma">
+                    <option>8 a 15 pessoas</option>
+                    <option>16 a 25 pessoas</option>
+                    <option>Mais de 25</option>
+                    <option>Ainda não sei</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="field">
+              <label for="f-msg">Mensagem <em>(opcional)</em></label>
+              <textarea id="f-msg" name="mensagem" rows="3" placeholder="Qual é o “gargalo que dói” hoje na sua operação?"></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--primary btn--block" data-magnetic data-cursor-label="enviar">
+              <span>Solicitar proposta</span>
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <p class="enroll__privacy">Seus dados são usados apenas para retornar o contato. Nada de spam.</p>
+          </form>
+
+          <div class="glass enroll__success" id="lead-success" hidden>
+            <div class="enroll__success-icon">✓</div>
+            <h3>Pedido registrado!</h3>
+            <p data-success-msg>Abrimos seu e-mail já preenchido — é só apertar enviar que entramos em contato com a proposta.</p>
+            <div class="enroll__success-actions">
+              <a href="#top" class="btn btn--ghost" data-magnetic data-cursor-label="topo">Voltar ao topo</a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -466,7 +563,7 @@
         Em 2026, usar IA já<br />não é o diferencial.
       </h2>
       <p class="finale__big grad" data-reveal>Usar bem, é.</p>
-      <a href="#oferta" class="btn btn--primary btn--xl" data-magnetic data-cursor-label="bora">
+      <a href="#inscricao" class="btn btn--primary btn--xl" data-magnetic data-cursor-label="bora">
         <span>Garantir minha vaga</span>
         <svg viewBox="0 0 24 24" width="20" height="20" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>

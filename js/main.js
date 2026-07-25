@@ -206,6 +206,94 @@
     }
   }
 
+  /* ─────────────── Lead form (real, no-backend by default) ───────────────
+     Works out of the box via mailto. To receive leads by POST instead,
+     paste a Formspree/Basin/etc. URL into FORM_ENDPOINT below. */
+  (() => {
+    const form = document.getElementById('lead-form');
+    if (!form) return;
+
+    const FORM_ENDPOINT = '';                          // optional: 'https://formspree.io/f/xxxx'
+    const LEAD_EMAIL = 'luciano.gonelli@gmail.com';    // fallback destination for mailto
+    const success = document.getElementById('lead-success');
+    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    const fieldOf = (el) => el.closest('.field');
+    const setError = (el, msg) => {
+      const f = fieldOf(el); if (!f) return;
+      const box = f.querySelector('[data-error]');
+      if (msg) { f.classList.add('is-invalid'); if (box) box.textContent = msg; }
+      else { f.classList.remove('is-invalid'); if (box) box.textContent = ''; }
+    };
+
+    const validate = () => {
+      let ok = true;
+      const { nome, email, whatsapp, empresa } = form;
+      if (!nome.value.trim()) { setError(nome, 'Como podemos te chamar?'); ok = false; } else setError(nome);
+      if (!emailRe.test(email.value.trim())) { setError(email, 'Informe um e-mail válido'); ok = false; } else setError(email);
+      if (whatsapp.value.replace(/\D/g, '').length < 8) { setError(whatsapp, 'Informe um telefone válido'); ok = false; } else setError(whatsapp);
+      if (!empresa.value.trim()) { setError(empresa, 'Qual é o nome da empresa?'); ok = false; } else setError(empresa);
+      return ok;
+    };
+
+    // Live-clear errors once a field is being corrected.
+    form.querySelectorAll('input').forEach((i) =>
+      i.addEventListener('input', () => { if (fieldOf(i)?.classList.contains('is-invalid')) validate(); }));
+
+    const buildMailto = (d) => {
+      const subject = `Proposta de Workshop de IA — ${d.empresa || d.nome}`;
+      const body =
+`Olá! Tenho interesse no Workshop de Letramento em IA para PMEs.
+
+Nome: ${d.nome}
+Empresa: ${d.empresa}
+E-mail: ${d.email}
+WhatsApp: ${d.whatsapp}
+Formato: ${d.formato}
+Tamanho da turma: ${d.turma}
+
+Mensagem:
+${d.mensagem || '—'}`;
+      return `mailto:${LEAD_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    };
+
+    const showSuccess = () => {
+      if (!success) return;
+      form.setAttribute('hidden', '');
+      success.removeAttribute('hidden');
+      if (lenis) lenis.scrollTo(success, { offset: -80 });
+      else success.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    };
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      if (!validate()) { form.querySelector('.is-invalid input')?.focus(); return; }
+
+      const data = Object.fromEntries(new FormData(form).entries());
+      const btn = form.querySelector('button[type=submit]');
+      const label = btn.querySelector('span');
+      const original = label.textContent;
+      btn.disabled = true; btn.style.transform = ''; label.textContent = 'Enviando…';
+
+      const finish = () => { btn.disabled = false; label.textContent = original; showSuccess(); };
+
+      if (FORM_ENDPOINT) {
+        try {
+          const res = await fetch(FORM_ENDPOINT, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+          });
+          if (!res.ok) throw new Error('bad response');
+          finish();
+          return;
+        } catch (_) { /* fall through to mailto */ }
+      }
+      window.location.href = buildMailto(data);
+      finish();
+    });
+  })();
+
   /* ═══════════════ GSAP SCROLL ANIMATIONS ═══════════════ */
   if (hasGSAP && !prefersReduced) {
 
