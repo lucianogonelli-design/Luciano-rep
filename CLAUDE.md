@@ -10,15 +10,20 @@ This file provides guidance for AI assistants (such as Claude) working in this r
 
 ## Project Structure
 
-Static site — plain HTML/CSS/JS, no build step or dependencies.
+Static site — plain HTML/CSS/JS, no build step or dependencies. The site lives
+under `bazar/`.
 
 ```
 /
-├── index.html          # Whole page: markup + inline <style> + inline <script>
-├── assets/             # Optimized store photos (JPEG)
-│   ├── fachada-historica.jpg
-│   ├── fachada-atual.jpg
-│   └── loja-interior.jpg
+├── bazar/
+│   ├── index.html      # Whole page: markup + inline <style> + inline <script>
+│   └── assets/
+│       ├── logo-branco.png     # logo for dark backgrounds
+│       ├── logo-escura.png     # logo for light backgrounds
+│       ├── icone.png / favicon.png
+│       ├── fachada-historica.jpg
+│       ├── fachada-atual.jpg
+│       └── loja-interior.jpg
 ├── README.md           # How to view/publish/edit the site (pt-BR)
 └── CLAUDE.md           # AI assistant guidance (this file)
 ```
@@ -26,8 +31,14 @@ Static site — plain HTML/CSS/JS, no build step or dependencies.
 ### Conventions
 
 - **Language**: All user-facing copy is in Brazilian Portuguese (`pt-BR`).
-- **Brand palette**: royal blue `#163a86` + golden yellow `#ffce1f` (from the store's signage).
-- **Editable placeholders**: opening hours and phone/WhatsApp are marked with `<!-- TODO -->` in `index.html` and should be confirmed with the owner before treating as final.
+- **Brand palette (official)**: golden yellow `#FFCC00` + grey `#B3B3B3`, with
+  charcoal `#1C1C1C` and white as support. Fonts: *Quicksand* + *Inter*.
+- **Logo**: use `logo-branco.png` on dark surfaces and `logo-escura.png` on light
+  ones — do not recolor the wordmark.
+- **Contact**: WhatsApp `(15) 99701-3188` (wa.me/5515997013188), phone
+  `(15) 3263-1030`.
+- **Editable placeholders**: opening hours are marked with `<!-- TODO -->` in
+  `bazar/index.html` and should be confirmed with the owner.
 
 ## Development Workflow
 
