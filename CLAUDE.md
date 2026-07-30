@@ -6,17 +6,28 @@ This file provides guidance for AI assistants (such as Claude) working in this r
 
 - **Repository**: Luciano-rep
 - **Owner**: lucianogonelli-design
-- **Status**: New repository — project scaffolding and initial codebase are being established.
+- **Status**: Hosts the institutional website (single-page site) for **Bazar São Benedito** (Bazar SB), a family-run clothing, footwear and variety store in Boituva/SP.
 
 ## Project Structure
 
-This repository is in its initial setup phase. As the project grows, update this section to reflect the directory layout and module organization.
+Static site — plain HTML/CSS/JS, no build step or dependencies.
 
 ```
 /
-├── CLAUDE.md          # AI assistant guidance (this file)
-└── (project files)    # To be added
+├── index.html          # Whole page: markup + inline <style> + inline <script>
+├── assets/             # Optimized store photos (JPEG)
+│   ├── fachada-historica.jpg
+│   ├── fachada-atual.jpg
+│   └── loja-interior.jpg
+├── README.md           # How to view/publish/edit the site (pt-BR)
+└── CLAUDE.md           # AI assistant guidance (this file)
 ```
+
+### Conventions
+
+- **Language**: All user-facing copy is in Brazilian Portuguese (`pt-BR`).
+- **Brand palette**: royal blue `#163a86` + golden yellow `#ffce1f` (from the store's signage).
+- **Editable placeholders**: opening hours and phone/WhatsApp are marked with `<!-- TODO -->` in `index.html` and should be confirmed with the owner before treating as final.
 
 ## Development Workflow
 
