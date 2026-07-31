@@ -6,17 +6,39 @@ This file provides guidance for AI assistants (such as Claude) working in this r
 
 - **Repository**: Luciano-rep
 - **Owner**: lucianogonelli-design
-- **Status**: New repository — project scaffolding and initial codebase are being established.
+- **Status**: Hosts the institutional website (single-page site) for **Bazar São Benedito** (Bazar SB), a family-run clothing, footwear and variety store in Boituva/SP.
 
 ## Project Structure
 
-This repository is in its initial setup phase. As the project grows, update this section to reflect the directory layout and module organization.
+Static site — plain HTML/CSS/JS, no build step or dependencies. The site lives
+under `bazar/`.
 
 ```
 /
-├── CLAUDE.md          # AI assistant guidance (this file)
-└── (project files)    # To be added
+├── bazar/
+│   ├── index.html      # Whole page: markup + inline <style> + inline <script>
+│   └── assets/
+│       ├── logo-branco.png     # logo for dark backgrounds
+│       ├── logo-escura.png     # logo for light backgrounds
+│       ├── icone.png / favicon.png
+│       ├── fachada-historica.jpg
+│       ├── fachada-atual.jpg
+│       └── loja-interior.jpg
+├── README.md           # How to view/publish/edit the site (pt-BR)
+└── CLAUDE.md           # AI assistant guidance (this file)
 ```
+
+### Conventions
+
+- **Language**: All user-facing copy is in Brazilian Portuguese (`pt-BR`).
+- **Brand palette (official)**: golden yellow `#FFCC00` + grey `#B3B3B3`, with
+  charcoal `#1C1C1C` and white as support. Fonts: *Quicksand* + *Inter*.
+- **Logo**: use `logo-branco.png` on dark surfaces and `logo-escura.png` on light
+  ones — do not recolor the wordmark.
+- **Contact**: WhatsApp `(15) 99701-3188` (wa.me/5515997013188), phone
+  `(15) 3263-1030`.
+- **Editable placeholders**: opening hours are marked with `<!-- TODO -->` in
+  `bazar/index.html` and should be confirmed with the owner.
 
 ## Development Workflow
 
