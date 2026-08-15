@@ -10,13 +10,23 @@ This file provides guidance for AI assistants (such as Claude) working in this r
 
 ## Project Structure
 
-This repository is in its initial setup phase. As the project grows, update this section to reflect the directory layout and module organization.
-
 ```
 /
-├── CLAUDE.md          # AI assistant guidance (this file)
-└── (project files)    # To be added
+├── CLAUDE.md              # AI assistant guidance (this file)
+├── skills/                # Claude skills collection (see skills/README.md)
+│   └── viral-scripts/     # Short-form video script skill (SKILL.md)
+├── index.html             # Workshop landing page
+├── css/                   # Landing page styles
+└── js/                    # Landing page scripts
 ```
+
+## Skills
+
+This repository doubles as a collection of custom Claude skills under `skills/`.
+
+- Each skill lives in `skills/<skill-name>/SKILL.md` with YAML frontmatter (`name`, `description`) followed by the instructions Claude executes when the skill triggers.
+- The directory name must match the skill's `name`.
+- To install a skill in Claude Code, copy its folder into `~/.claude/skills/` (personal) or a project's `.claude/skills/`. See `skills/README.md` for details.
 
 ## Development Workflow
 
